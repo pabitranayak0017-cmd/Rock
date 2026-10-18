@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Birthday Surprise — For My Dearest Sister 💖</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Background Dynamic Canvas -->
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- Global Floating Audio Control -->
+    <button id="audioToggleBtn" class="audio-toggle-btn" aria-label="Toggle Background Music">
+        <span class="audio-icon">🔇</span>
+        <span class="audio-waves">
+            <span></span><span></span><span></span>
+        </span>
+    </button>
+
+    <!-- MAIN INTERACTIVE CONTAINER -->
+    <main id="appContainer" class="app-container">
+
+        <!-- SCENE 1: GIFT UNBOXING -->
+        <section id="scene-1" class="scene active">
+            <div class="scene-content flex-center">
+                <div class="intro-heading">
+                    <p class="tagline">A surprise awaits you...</p>
+                    <h1 class="sparkle-text">A special surprise for the best sister ever! 🎁</h1>
+                </div>
+                
+                <div class="gift-box-wrapper" id="giftBox">
+                    <div class="gift-glow"></div>
+                    <div class="gift-particles"></div>
+                    <div class="gift-box">
+                        <div class="gift-lid">
+                            <div class="gift-bow"></div>
+                        </div>
+                        <div class="gift-body">
+                            <div class="gift-ribbon-v"></div>
+                            <div class="gift-ribbon-h"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tap-hint">
+                    <span class="finger-icon">👇</span>
+                    <p>Tap the gift to open!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCENE 2: PASSCODE LOCK SCREEN -->
+        <section id="scene-2" class="scene">
+            <div class="scene-content flex-center">
+                <div class="lock-device glass-card">
+                    <div class="lock-header">
+                        <div id="lockLiveTime" class="lock-time">12:00</div>
+                        <div id="lockLiveDate" class="lock-date">Monday, April 22</div>
+                        <div class="lock-status-icon" id="lockIcon">🔒</div>
+                    </div>
+
+                    <div class="lock-body">
+                        <h2>A secret surprise is waiting...</h2>
+                        <div class="pin-display" id="pinDisplay">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                        <p id="lockFeedback" class="lock-feedback">Enter Security PIN</p>
+
+                        <!-- Keypad -->
+                        <div class="keypad">
+                            <button class="key-btn" data-key="1">1</button>
+                            <button class="key-btn" data-key="2">2</button>
+                            <button class="key-btn" data-key="3">3</button>
+                            <button class="key-btn" data-key="4">4</button>
+                            <button class="key-btn" data-key="5">5</button>
+                            <button class="key-btn" data-key="6">6</button>
+                            <button class="key-btn" data-key="7">7</button>
+                            <button class="key-btn" data-key="8">8</button>
+                            <button class="key-btn" data-key="9">9</button>
+                            <button class="key-btn action-key" data-key="back">⌫</button>
+                            <button class="key-btn" data-key="0">0</button>
+                            <button class="key-btn action-key enter-key" data-key="enter">✓</button>
+                        </div>
+                        
+                        <p class="hint-text">💭 Hint: A special date connected to her</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCENE 3: LOADING TRANSITION -->
+        <section id="scene-3" class="scene">
+            <div class="scene-content flex-center">
+                <div class="loader-card glass-card">
+                    <div class="loader-ring-wrapper">
+                        <svg class="loader-svg" viewBox="0 0 100 100">
+                            <circle class="bg-circle" cx="50" cy="50" r="42"></circle>
+                            <circle id="progressCircle" class="progress-circle" cx="50" cy="50" r="42"></circle>
+                        </svg>
+                        <div class="loader-text-inside">
+                            <span id="loadPercent">0</span>%
+                        </div>
+                    </div>
+                    <h3 id="loaderStatusText" class="loader-status">Loading special sibling memories...</h3>
+                    <p id="loaderSubText" class="loader-sub">Preparing magic particles...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCENE 4: BIRTHDAY DASHBOARD -->
+        <section id="scene-4" class="scene">
+            <div class="scene-content">
+                <div class="dashboard-header">
+                    <span class="badge">Special Day</span>
+                    <h1 class="dash-title">Happy Birthday, <span id="dashSisterName" class="gradient-text">Sister</span> ❤️</h1>
+                    <p id="dashLiveDate" class="dash-date">Today is all about you!</p>
+                </div>
+
+                <!-- Interactive CSS Cake -->
+                <div class="cake-container">
+                    <div class="cake">
+                        <div class="plate"></div>
+                        <div class="layer layer-bottom"></div>
+                        <div class="layer layer-middle"></div>
+                        <div class="layer layer-top"></div>
+                        <div class="icing"></div>
+                        <div class="candle">
+                            <div class="flame"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Counter Cards Grid -->
+                <div class="counters-grid">
+                    <div class="counter-card glass-card">
+                        <div class="counter-val" data-target="365">0</div>
+                        <div class="counter-label">+ Beautiful Memories</div>
+                    </div>
+                    <div class="counter-card glass-card">
+                        <div class="counter-val" data-target="999">0</div>
+                        <div class="counter-label">∞ Laughs Together</div>
+                    </div>
+                    <div class="counter-card glass-card">
+                        <div class="counter-val" data-target="100">0</div>
+                        <div class="counter-label">% Sister Love</div>
+                    </div>
+                </div>
+
+                <div class="cta-wrapper">
+                    <button id="toGalleryBtn" class="btn-primary glow-btn">
+                        Let's unlock your memories →
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCENE 5: MEMORIES GALLERY & VIDEO -->
+        <section id="scene-5" class="scene">
+            <div class="scene-content">
+                <div class="section-title">
+                    <h2>Sister Memories 📸</h2>
+                    <p>Priceless moments we'll cherish forever</p>
+                </div>
+
+                <!-- Carousel Component -->
+                <div class="carousel-container glass-card">
+                    <div class="carousel-track-container">
+                        <div class="carousel-track" id="carouselTrack">
+                            <!-- Slides dynamically generated in script.js -->
+                        </div>
+                    </div>
+
+                    <button class="carousel-btn prev-btn" id="prevBtn" aria-label="Previous Photo">❮</button>
+                    <button class="carousel-btn next-btn" id="nextBtn" aria-label="Next Photo">❯</button>
+
+                    <div class="carousel-indicators" id="carouselDots"></div>
+                </div>
+
+                <!-- Optional Memory Video Block -->
+                <div class="video-section glass-card" id="videoContainer">
+                    <h3>Memory Motion 🎥</h3>
+                    <div class="video-wrapper">
+                        <video id="memoryVideo" controls preload="metadata" poster="assets/photos/photo1.jpg">
+                            <source src="assets/video/B.mp4" type="video/mp4">
+                            Your browser does not support video play.
+                        </video>
+                    </div>
+                </div>
+
+                <div class="cta-wrapper">
+                    <button id="toBalloonGameBtn" class="btn-primary glow-btn">
+                        Next Surprise →
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCENE 6: POP THE WISHES BALLOON GAME -->
+        <section id="scene-6" class="scene">
+            <div class="scene-content">
+                <div class="section-title">
+                    <h2>Pop the Wishes 🎈</h2>
+                    <p>Tap the balloons and discover your birthday wishes!</p>
+                </div>
+
+                <div class="balloon-arena" id="balloonArena">
+                    <!-- Balloons generated dynamically -->
+                </div>
+
+                <div class="wish-toast glass-card" id="wishToast">
+                    <span id="wishMessage">Tap a balloon!</span>
+                </div>
+
+                <div class="cta-wrapper">
+                    <button id="toPuzzleBtn" class="btn-primary glow-btn hidden" id="toPuzzleBtn">
+                        All Wishes Unlocked! Next Surprise →
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCENE 7: BIRTHDAY PHOTO PUZZLE -->
+        <section id="scene-7" class="scene">
+            <div class="scene-content">
+                <div class="section-title">
+                    <h2>Can you complete this memory? 🧩</h2>
+                    <p>Slide the tiles to assemble the full photo</p>
+                </div>
+
+                <div class="puzzle-stats">
+                    <span class="stat-badge">Moves: <strong id="moveCount">0</strong></span>
+                </div>
+
+                <div class="puzzle-container glass-card">
+                    <div id="puzzleBoard" class="puzzle-board">
+                        <!-- 3x3 tiles dynamic insertion -->
+                    </div>
+                </div>
+
+                <div id="puzzleSuccessMessage" class="puzzle-success-card glass-card hidden">
+                    <h3>You did it! 🎉</h3>
+                    <p>Memory unlocked ❤️</p>
+                </div>
+
+                <div class="cta-wrapper">
+                    <button id="toScratchBtn" class="btn-primary glow-btn hidden">
+                        Next Surprise →
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCENE 8: SCRATCH CARD SURPRISE -->
+        <section id="scene-8" class="scene">
+            <div class="scene-content flex-center">
+                <div class="section-title">
+                    <h2>Scratch to reveal your surprise ✨</h2>
+                    <p>Use your finger or mouse to scratch the gold foil</p>
+                </div>
+
+                <div class="scratch-card-wrapper glass-card">
+                    <div class="scratch-underlayer" id="scratchUnderlayer">
+                        <div class="gift-icon">🎁</div>
+                        <h3 id="scratchRevealText">Treat on Me!</h3>
+                        <p class="reveal-sub">Valid forever & always ❤️</p>
+                    </div>
+                    <canvas id="scratchCanvas" width="300" height="200"></canvas>
+                </div>
+
+                <div id="scratchStatus" class="scratch-status">Scratch at least 50%...</div>
+
+                <div class="cta-wrapper">
+                    <button id="toEnvelopeBtn" class="btn-primary glow-btn hidden">
+                        Open Final Letter →
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCENE 9: ENVELOPE & SCENE 10 LETTER -->
+        <section id="scene-9" class="scene">
+            <div class="scene-content flex-center">
+                <div class="envelope-stage" id="envelopeStage">
+                    <div class="envelope-title">
+                        <h2>A Letter For You 💌</h2>
+                        <p>Tap the envelope to break the seal</p>
+                    </div>
+
+                    <div class="envelope" id="envelope">
+                        <div class="envelope-back"></div>
+                        <div class="envelope-paper-preview"></div>
+                        <div class="envelope-cover"></div>
+                        <div class="envelope-top"></div>
+                        <div class="envelope-seal">💖</div>
+                    </div>
+                </div>
+
+                <!-- UNFOLDED LETTER DISPLAY -->
+                <div class="letter-modal glass-card hidden" id="letterModal">
+                    <div class="letter-paper">
+                        <div class="letter-header">
+                            <span class="stamp">🎂</span>
+                            <h2 id="letterHeading">Dear Sister ❤️</h2>
+                        </div>
+                        <div class="letter-body" id="letterBody">
+                            <!-- Typing text dynamically inserted -->
+                        </div>
+                        <div class="letter-footer">
+                            <p>With lots of love,</p>
+                            <h3 id="letterAuthor">Your Brother</h3>
+                        </div>
+                    </div>
+
+                    <div class="cta-wrapper">
+                        <button id="finalCelebrationBtn" class="btn-primary glow-btn">
+                            Grand Finale Celebration 🎉
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCENE 10: FINAL CELEBRATION MODAL OVERLAY -->
+        <div id="finaleOverlay" class="finale-overlay hidden">
+            <div class="finale-content glass-card flex-center">
+                <h1 id="finaleTitle" class="glow-text">Happy Birthday, <span id="finaleSisterName">Sister</span>! 🎂❤️</h1>
+                <p class="finale-sub">You're loved more than words can say.</p>
+                <div class="finale-actions">
+                    <button id="replayBtn" class="btn-secondary">
+                        Replay Surprise 🔄
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
